@@ -18,7 +18,7 @@ data_eng = data1.rename(columns={
 })
 data_eng.to_csv(f'{DATA_PATH}/data_eng.csv', index=False)
 
-data2 = pd.read_csv('data_donatori.csv')
+data2 = pd.read_csv(f'{DATA_PATH}/data_donatori.csv')
 data_donatori_eng = data2.rename(columns={
     'Idx Experiment': 'Experiment Index',
     'Idx Replica Diluizione': 'Dilution Replicate Index',
