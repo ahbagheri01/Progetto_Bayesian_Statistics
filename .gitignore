@@ -215,3 +215,5 @@ logs/
 results/
 .idea/
 .vscode/    
+*.DS_Store
+*.exe
