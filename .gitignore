@@ -217,3 +217,5 @@ results/
 .vscode/    
 *.DS_Store
 *.exe
+
+.bayesian_stat
