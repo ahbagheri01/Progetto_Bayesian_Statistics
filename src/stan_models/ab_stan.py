@@ -37,9 +37,6 @@ if not os.path.exists(STAN_PATH):
 import cmdstanpy
 print(cmdstanpy.cmdstan_path())
 
-# ============================================================================
-# MODEL 1: BASELINE (Simple Normal Prior)
-# ============================================================================
 glm1 = """
 data {
     int<lower=0> N; 
@@ -118,9 +115,6 @@ with open(stan_file, "w") as f:
     print(glm1, file=f)
 glm = CmdStanModel(stan_file=stan_file)
 
-# ============================================================================
-# MODEL 2: REGULARIZED HORSESHOE
-# ============================================================================
 glm_horseshoe_reg = """
 data {
     int<lower=0> N; 
@@ -211,10 +205,20 @@ stan_file = f"{STAN_PATH}/ab_regularized_horseshoe.stan"
 with open(stan_file, "w") as f:
     print(glm_horseshoe_reg, file=f)
 glm = CmdStanModel(stan_file=stan_file)
+stan_file = f"{STAN_PATH}/ab_regularized_horseshoe1.stan"
+with open(stan_file, "w") as f:
+    print(glm_horseshoe_reg, file=f)
+glm = CmdStanModel(stan_file=stan_file)
+stan_file = f"{STAN_PATH}/ab_regularized_horseshoe2.stan"
+with open(stan_file, "w") as f:
+    print(glm_horseshoe_reg, file=f)
+glm = CmdStanModel(stan_file=stan_file)
+stan_file = f"{STAN_PATH}/ab_regularized_horseshoe3.stan"
+with open(stan_file, "w") as f:
+    print(glm_horseshoe_reg, file=f)
+    
+glm = CmdStanModel(stan_file=stan_file)
 
-# ============================================================================
-# MODEL 3: STANDARD HORSESHOE
-# ============================================================================
 glm_horseshoe = """
 data {
     int<lower=0> N; 
@@ -291,9 +295,6 @@ with open(stan_file, "w") as f:
     print(glm_horseshoe, file=f)
 glm = CmdStanModel(stan_file=stan_file)
 
-# ============================================================================
-# MODEL 4: R2-D2 PRIOR
-# ============================================================================
 glm_r2d2 = """
 data {
     int<lower=0> N; 
@@ -382,9 +383,7 @@ with open(stan_file, "w") as f:
     print(glm_r2d2, file=f)
 glm = CmdStanModel(stan_file=stan_file)
 
-# ============================================================================
-# MODEL 5: BAYESIAN LASSO
-# ============================================================================
+
 glm_lasso = """
 data {
     int<lower=0> N; 
