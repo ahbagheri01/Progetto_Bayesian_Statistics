@@ -14,9 +14,10 @@ data {
     array[N] int idx_experiment_replica;
     array[M] int idx_donor_experiment;
     
-    // R2 prior parameters
+    // R2-D2 prior parameters
     real<lower=0, upper=1> R2_mean;
     real<lower=0> R2_prec;
+    real<lower=0> cons_D2;  // Dirichlet concentration (default 1.0, smaller = more shrinkage)
 }
 
 parameters {
@@ -28,25 +29,27 @@ parameters {
     real<lower=0> sigma_chi;
     
     // R2-D2 parameters
-    simplex[p] psi;
+    real<lower=0> sigma;  
+    simplex[p] phi;       
     real<lower=0, upper=1> R2;
 }
 
 transformed parameters {
     vector[N] mu;
     real<lower=0> sigma_beta = sqrt(sigma_beta_sq);
-    real<lower=0> sigma_beta_r2;
-    vector[p] lambda_r2d2;
+    real<lower=0> omega;  // R²/(1-R²) term
+    vector<lower=0>[p] lambda;  // Local shrinkage
     
-    // R2-D2 shrinkage
-    sigma_beta_r2 = sqrt(R2 / (1 - R2));
+    // R2-D2 shrinkage: λ_j = sqrt(φ_j) * ω
+    omega = sqrt(R2 / (1 - R2));
     for (k in 1:p) {
-        lambda_r2d2[k] = sigma_beta_r2 * sqrt(psi[k]);
+        lambda[k] = sqrt(phi[k]) * omega;
     }
     
+    // Linear predictor
     for(i in 1:N) {
-      mu[i] = alpha[idx_experiment[i]] * exp(row(X, i) * beta + 
-              beta_random[idx_experiment[i], idx_experiment_replica[i]]);
+        mu[i] = alpha[idx_experiment[i]] * exp(row(X, i) * beta + 
+                beta_random[idx_experiment[i], idx_experiment_replica[i]]);
     }
 }
 
@@ -60,12 +63,14 @@ model {
     mu_chi ~ normal(4, 1);
     sigma_chi ~ normal(0, 1); 
     
-    // R2-D2 prior
+    // R2-D2 prior (corrected with global scale σ)
+    sigma ~ student_t(3, 0, 2.5);  // Global scale prior
     R2 ~ beta(R2_mean * R2_prec, (1 - R2_mean) * R2_prec);
-    psi ~ dirichlet(rep_vector(1.0, p));
+    phi ~ dirichlet(rep_vector(cons_D2, p));
     
+    // Regression coefficients: β_j ~ N(0, σ² λ_j²)
     for (k in 1:p) {
-        beta[k] ~ normal(0, lambda_r2d2[k]);
+        beta[k] ~ normal(0, sigma * lambda[k]);
     }
     
     // Random effects
