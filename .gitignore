@@ -213,6 +213,7 @@ __marimo__/
 data/
 logs/
 results/
+results1/
 .idea/
 .vscode/    
 *.DS_Store

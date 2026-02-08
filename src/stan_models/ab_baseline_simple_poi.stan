@@ -27,11 +27,12 @@ parameters {
 
 transformed parameters {
     vector[N] mu;
+    real<lower=0> sigma_beta = sqrt(sigma_beta_sq);
+    real<lower=0> tau = sqrt(tau_sq);
     for(i in 1:N) {
       mu[i] = alpha[idx_experiment[i]]* exp(row(X, i) * beta + beta_random[idx_experiment[i], idx_experiment_replica[i]]);
     }
-    real<lower=0> sigma_beta = sqrt(sigma_beta_sq);
-    real<lower=0> tau = sqrt(tau_sq);
+    
 }
 
 model {   
@@ -65,8 +66,14 @@ model {
 
 generated quantities {
   vector[N] log_lik;
+  array[N] int<lower=0> Y_rep;
+
   for (j in 1:N) {
     log_lik[j] = poisson_lpmf(Y[j] | rho_trasc[j]* mu[j]);
   }
+
+  for (n in 1:N) {
+    Y_rep[n] = poisson_rng(rho_trasc[n] * mu[n]);
+  } 
 }
 
