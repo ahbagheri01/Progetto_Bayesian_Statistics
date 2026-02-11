@@ -13,6 +13,15 @@ data {
     array[N] int idx_experiment;
     array[N] int idx_experiment_replica;
     array[M] int idx_donor_experiment;
+    
+    // Hyperparameters for priors
+    real mu_chi_mu;
+    real<lower=0> mu_chi_sigma;
+    real<lower=0> sigma_chi_sigma;
+    real<lower=0> tau_sq_a;  
+    real<lower=0> tau_sq_b;
+    real<lower=0> sigma_beta_sq_a;  
+    real<lower=0> sigma_beta_sq_b;
 }
 
 parameters {
@@ -32,7 +41,6 @@ transformed parameters {
     for(i in 1:N) {
       mu[i] = alpha[idx_experiment[i]]* exp(row(X, i) * beta + beta_random[idx_experiment[i], idx_experiment_replica[i]]);
     }
-    
 }
 
 model {   
@@ -47,21 +55,21 @@ model {
     for (m in 1:I) {
         log(alpha[m])~normal(mu_chi, sigma_chi);
     }
-    mu_chi ~ normal(4,1);
-    sigma_chi ~ normal(0,1); 
+    mu_chi ~ normal(mu_chi_mu, mu_chi_sigma);
+    sigma_chi ~ normal(0,sigma_chi_sigma); 
     
     for (k in 1:p) {
         beta[k] ~ normal(0.0, tau);
     }
 
-    tau_sq ~ inv_gamma(2, 1); 
+    tau_sq ~ inv_gamma(tau_sq_a, tau_sq_b); 
     
     for (i in 1:I) {    
         for (j in 1:J) {
             beta_random[i,j] ~ normal(0, sigma_beta);
         }
     }
-    sigma_beta_sq ~ inv_gamma(2, 1);  
+    sigma_beta_sq ~ inv_gamma(sigma_beta_sq_a, sigma_beta_sq_b);  
 }
 
 generated quantities {
