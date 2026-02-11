@@ -107,7 +107,7 @@ model {
     }
 
     tau_sq ~ inv_gamma(tau_sq_a, tau_sq_b); 
-    
+    git
     for (i in 1:I) {    
         for (j in 1:J) {
             beta_random[i,j] ~ normal(0, sigma_beta);
