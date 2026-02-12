@@ -1,0 +1,23 @@
+\begin{table}
+\caption{Model Configurations}
+\label{tab:configs}
+\begin{tabular}{clp{8cm}}
+\toprule
+Index & Model & Hyperparameters \\
+\midrule
+1 & ab baseline simple poi & mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, tau sq a=2.0, tau sq b=1.0, sigma beta sq a=2.0, sigma beta sq b=1.0 \\
+2 & ab lasso & mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0 \\
+3 & ab horseshoe & mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0 \\
+4 & ab regularized horseshoe & p0=2, mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0 \\
+5 & ab r2d2 & R2 mean=0.5, R2 prec=2.0, cons D2=0.5, mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0 \\
+6 & ab spike slab & pi prior=0.2, tau slab=2.0, tau spike=0.01, mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0 \\
+7 & ab baseline negbin & mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, tau sq a=2.0, tau sq b=1.0, sigma beta sq a=2.0, sigma beta sq b=1.0, phi y rate=0.1, phi d rate=0.1 \\
+8 & ab lasso negbin & mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0, phi y rate=0.1, phi d rate=0.1 \\
+9 & ab horseshoe negbin & mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0, phi y rate=0.1, phi d rate=0.1 \\
+10 & ab regularized horseshoe negbin & p0=2, mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0, phi y rate=0.1, phi d rate=0.1 \\
+11 & ab r2d2 negbin & R2 mean=0.5, R2 prec=2.0, cons D2=0.5, mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0, phi y rate=0.1, phi d rate=0.1 \\
+12 & ab spike slab negbin & pi prior=0.2, tau slab=2.0, tau spike=0.01, mu chi mu=0.0, mu chi sigma=10.0, sigma chi sigma=5.0, sigma beta sq a=2.0, sigma beta sq b=1.0, phi y rate=0.1, phi d rate=0.1 \\
+13 & sr halfnormal negbin & mu alpha 0=0.0, sigma alpha 0=10.0, sigma b=2.5, phi y rate=0.1, phi d rate=0.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
