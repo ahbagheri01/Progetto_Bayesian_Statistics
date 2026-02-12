@@ -114,6 +114,19 @@ model_names = [
         "sigma_beta_sq_a": 2.0,
         "sigma_beta_sq_b": 1.0
     }),
+     ("ab_neg_binomial.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "tau_sq_a": 2.0,
+        "tau_sq_b": 1.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+
+        # NEW: dispersion prior rates for Pascal/NB2
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1,
+    })
     # ("sr_invgamma.stan", {
     #     "mu_alpha_0": 0.0,
     #     "sigma_alpha_0": 10.0,
@@ -137,7 +150,61 @@ model_names = [
 
 
 model_names = [
-    ("ab_neg_binomial.stan", {
+    # POISSON MODELS
+    ("ab_baseline_simple_poi.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "tau_sq_a": 2.0,
+        "tau_sq_b": 1.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0
+    }), 
+    ("ab_lasso.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0
+    }), 
+    ("ab_horseshoe.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0
+    }), 
+    ("ab_regularized_horseshoe.stan", {
+        "p0": 2,
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0
+    }), 
+    ("ab_r2d2.stan", {
+        "R2_mean": 0.5,
+        "R2_prec": 2.0,
+        "cons_D2": 0.5,
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0
+    }),
+    ("ab_spike_slab.stan", {
+        "pi_prior": 0.2,
+        "tau_slab": 2.0,
+        "tau_spike": 0.01,
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0
+    }),
+    
+    # NEGATIVE BINOMIAL MODELS
+    ("ab_baseline_negbin.stan", {
         "mu_chi_mu": 0.0,
         "mu_chi_sigma": 10.0,
         "sigma_chi_sigma": 5.0,
@@ -145,17 +212,77 @@ model_names = [
         "tau_sq_b": 1.0,
         "sigma_beta_sq_a": 2.0,
         "sigma_beta_sq_b": 1.0,
-
-        # NEW: dispersion prior rates for Pascal/NB2
         "phi_y_rate": 0.1,
-        "phi_d_rate": 0.1,
-    })]
+        "phi_d_rate": 0.1
+    }),
+    ("ab_lasso_negbin.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    }),
+    ("ab_horseshoe_negbin.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    }),
+    ("ab_regularized_horseshoe_negbin.stan", {
+        "p0": 2,
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    }),
+    ("ab_r2d2_negbin.stan", {
+        "R2_mean": 0.5,
+        "R2_prec": 2.0,
+        "cons_D2": 0.5,
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    }),
+    ("ab_spike_slab_negbin.stan", {
+        "pi_prior": 0.2,
+        "tau_slab": 2.0,
+        "tau_spike": 0.01,
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    }),
+    ("sr_halfnormal_negbin.stan", {
+        "mu_alpha_0": 0.0,
+        "sigma_alpha_0": 10.0,
+        "sigma_b": 2.5,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    })
+]
 
 models = {}
 for key in model_names:
     print(f"Compiling model: {key[0]}")
     glm = CmdStanModel(stan_file=f"{STAN_PATH}/{key[0]}")
     for x in X_D:
+        if x == "X2":
+            continue
         models[(key[0], tuple(key[1].items()), x)] = {"model": glm, "X": X_D[x]}
         new_data = glm_data.copy()
         new_data.update({"X": X_D[x], "p": X_D[x].shape[1]})
