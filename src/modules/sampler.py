@@ -276,6 +276,53 @@ model_names = [
     })
 ]
 
+
+
+base_model_names = [
+    # NEGATIVE BINOMIAL MODELS
+    ("ab_baseline_negbin.stan", {
+        "mu_chi_mu": 0.0,
+        "mu_chi_sigma": 10.0,
+        "sigma_chi_sigma": 5.0,
+        "tau_sq_a": 2.0,
+        "tau_sq_b": 1.0,
+        "sigma_beta_sq_a": 2.0,
+        "sigma_beta_sq_b": 1.0,
+        "phi_y_rate": 0.1,
+        "phi_d_rate": 0.1
+    })
+    # ("ab_spike_slab_negbin.stan", {
+    #     "pi_prior": 0.2,
+    #     "tau_slab": 2.0,
+    #     "tau_spike": 0.01,
+    #     "mu_chi_mu": 0.0,
+    #     "mu_chi_sigma": 10.0,
+    #     "sigma_chi_sigma": 5.0,
+    #     "sigma_beta_sq_a": 2.0,
+    #     "sigma_beta_sq_b": 1.0,
+    #     "phi_y_rate": 0.1,
+    #     "phi_d_rate": 0.1
+    # })
+]
+
+grid = np.linspace(0.05, 0.1, 2)
+
+model_names = []
+for stan_file, priors in base_model_names:
+    for y in grid:
+        for d in grid:
+            new_priors = dict(priors)  # shallow copy is enough (values are scalars)
+            new_priors["phi_y_rate"] = round(float(y), 2)
+            new_priors["phi_d_rate"] = round(float(d), 2)
+            model_names.append((stan_file, new_priors))
+
+# Optional sanity checks
+print("num models:", len(model_names))  # should be len(base_model_names) * 10 * 10
+print("first:", model_names[0])
+print("last:", model_names[-1])
+
+        
+        
 models = {}
 for key in model_names:
     print(f"Compiling model: {key[0]}")
@@ -289,17 +336,24 @@ for key in model_names:
         new_data.update(key[1])
         models[(key[0], tuple(key[1].items()), x)]["data"] = new_data
 
-os.makedirs("./results/ab_hyp/", exist_ok=True)
+os.makedirs("./results/ab_hyp_grid/", exist_ok=True)
 
 # CHECK WHAT EXISTS VS WHAT NEEDS SAMPLING
 existing = []
 to_sample = []
 for key in models.keys():
-    filename = f"./results/ab_hyp/{'_'.join(str(k) for k in key)}.nc"
+    if key[0].startswith("ab_spike_slab_negbin"):
+        
+        filename = f"./results/ab_hyp_grid/{'_'.join(str(k) for k in key)}.nc"
+        print(filename)
+    else:
+        filename = f"./results/ab_hyp_grid/{'_'.join(str(k) for k in key)}.nc"
     if os.path.exists(filename):
+        print(filename)
         existing.append(key)
     else:
         to_sample.append(key)
+
 
 print(f"\n{'='*70}")
 print(f"ALREADY EXISTS: {len(existing)}")
@@ -341,7 +395,8 @@ with ThreadPoolExecutor(max_workers=max_workers) as executor:
         key, fit = future.result()
         models[key]["fit"] = fit
         models[key]["az"] = az.from_cmdstanpy(fit)
-        filename = f"./results/ab_hyp/{'_'.join(str(k) for k in key)}.nc"
+        filename = f"./results/ab_hyp_grid/{'_'.join(str(k) for k in key)}.nc"
+        print(filename)
         az.to_netcdf(models[key]["az"], filename)
         print(f"✓ Saved: {key}")
 
