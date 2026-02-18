@@ -3,33 +3,30 @@
 \label{tab:divergences}
 \begin{tabular}{lcc}
 \toprule
-Model & X Input & Config & Divergence Rate \\
+Base Model & $eta$ Prior & X Input & Config & Divergence Rate \\
 \midrule
-ab baseline simple poi & X & 0 & 0.00 \\
-ab baseline simple poi & X2 I & 0 & 0.00 \\
-ab lasso & X & 1 & 0.00 \\
-ab lasso & X2 I & 1 & 0.00 \\
-ab lasso & X2 & 1 & 0.00 \\
-ab horseshoe & X & 2 & 7.26 \\
-ab horseshoe & X2 I & 2 & 1.09 \\
-ab regularized horseshoe & X & 3 & 1.05 \\
-ab regularized horseshoe & X2 I & 3 & 1.95 \\
-ab regularized horseshoe & X2 & 3 & 3.43 \\
-ab r2d2 & X & 4 & 0.45 \\
-ab r2d2 & X2 I & 4 & 0.61 \\
-ab spike slab & X & 5 & 0.00 \\
-ab spike slab & X2 I & 5 & 0.00 \\
-ab baseline negbin & X & 6 & 0.00 \\
-ab baseline negbin & X2 I & 6 & 0.00 \\
-ab lasso negbin & X & 7 & 0.00 \\
-ab lasso negbin & X2 I & 7 & 0.00 \\
-ab horseshoe negbin & X & 8 & 1.50 \\
-ab horseshoe negbin & X2 I & 8 & 2.60 \\
-ab regularized horseshoe negbin & X & 9 & 26.45 \\
-ab r2d2 negbin & X & 10 & 1.16 \\
-ab r2d2 negbin & X2 I & 10 & 20.75 \\
-ab spike slab negbin & X & 11 & 0.00 \\
-sr halfnormal negbin & X & 12 & 0.00 \\
+Poisson & baseline simple & X & 0 & 0.00 \\
+Poisson & baseline simple & X2 I & 0 & 0.00 \\
+Poisson & lasso & X & 1 & 0.00 \\
+Poisson & lasso & X2 I & 1 & 0.00 \\
+Poisson & lasso & X2 & 1 & 0.00 \\
+Poisson & horseshoe & X2 I & 2 & 1.09 \\
+Poisson & regularized horseshoe & X & 3 & 1.05 \\
+Poisson & regularized horseshoe & X2 I & 3 & 1.95 \\
+Poisson & regularized horseshoe & X2 & 3 & 3.43 \\
+Poisson & r2d2 & X & 4 & 0.45 \\
+Poisson & r2d2 & X2 I & 4 & 0.61 \\
+Poisson & spike slab & X & 5 & 0.00 \\
+Poisson & spike slab & X2 I & 5 & 0.00 \\
+Negative Binomial & baseline & X & 6 & 0.00 \\
+Negative Binomial & baseline & X2 I & 6 & 0.00 \\
+Negative Binomial & lasso & X & 7 & 0.00 \\
+Negative Binomial & lasso & X2 I & 7 & 0.00 \\
+Negative Binomial & horseshoe & X & 8 & 1.50 \\
+Negative Binomial & horseshoe & X2 I & 8 & 2.60 \\
+Negative Binomial & r2d2 & X & 10 & 1.16 \\
+Negative Binomial & spike sl & X & 11 & 0.00 \\
+Negative Binomial & halfnormal & X & 12 & 0.00 \\
 \bottomrule
 \end{tabular}
 \end{table}

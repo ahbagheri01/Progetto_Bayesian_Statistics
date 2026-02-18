@@ -1,0 +1,32 @@
+\begin{table}
+\caption{Selected Covariates by Model (95\% HDI)}
+\label{tab:selected_covariates}
+\begin{tabular}{lllll}
+\toprule
+Base Model & $\beta$ Prior & X Input & Intercept & Selected Co \\
+\midrule
+Poisson & baseline simple & X & -10.571 $\pm$ 0.280 & DMSO (0.157 $\pm$ 0.028) \\
+Poisson & baseline simple & X2 I & -10.568 $\pm$ 0.273 & DMSO (0.155 $\pm$ 0.036), IBUTemp (0.044 $\pm$ 0.019) \\
+Poisson & lasso & X & -10.578 $\pm$ 0.272 & DMSO (0.157 $\pm$ 0.028) \\
+Poisson & lasso & X2 I & -10.577 $\pm$ 0.264 & DMSO (0.155 $\pm$ 0.035), IBUTemp (0.044 $\pm$ 0.019) \\
+Poisson & lasso & X2 & -10.572 $\pm$ 0.273 & IBU (-0.203 $\pm$ 0.105), IBUTemp (0.046 $\pm$ 0.019), IBU2 (0.177 $\pm$ 0.088) \\
+Poisson & horseshoe & X2 I & -10.584 $\pm$ 0.259 & DMSO (0.152 $\pm$ 0.034), IBUTemp (0.043 $\pm$ 0.019) \\
+Poisson & regularized horseshoe & X & -10.580 $\pm$ 0.278 & DMSO (0.155 $\pm$ 0.028) \\
+Poisson & regularized horseshoe & X2 I & -10.581 $\pm$ 0.269 & DMSO (0.152 $\pm$ 0.033), IBUTemp (0.042 $\pm$ 0.020) \\
+Poisson & regularized horseshoe & X2 & -10.580 $\pm$ 0.270 & IBUTemp (0.043 $\pm$ 0.020) \\
+Poisson & r2d2 & X & -10.577 $\pm$ 0.275 & DMSO (0.157 $\pm$ 0.028) \\
+Poisson & r2d2 & X2 I & -10.578 $\pm$ 0.272 & DMSO (0.154 $\pm$ 0.034), IBUTemp (0.044 $\pm$ 0.019) \\
+Poisson & spike slab & X & -10.537 $\pm$ 0.269 & DMSO (0.157 $\pm$ 0.028) \\
+Poisson & spike slab & X2 I & -10.539 $\pm$ 0.265 & DMSO (0.157 $\pm$ 0.031), IBUTemp (0.032 $\pm$ 0.024) \\
+Negative Binomial & baseline & X & -10.825 $\pm$ 0.337 & — \\
+Negative Binomial & baseline & X2 I & -10.822 $\pm$ 0.306 & — \\
+Negative Binomial & lasso & X & -10.829 $\pm$ 0.330 & — \\
+Negative Binomial & lasso & X2 I & -10.829 $\pm$ 0.313 & — \\
+Negative Binomial & horseshoe & X & -10.839 $\pm$ 0.329 & — \\
+Negative Binomial & horseshoe & X2 I & -10.838 $\pm$ 0.314 & — \\
+Negative Binomial & r2d2 & X & -10.829 $\pm$ 0.332 & — \\
+Negative Binomial & spike sl & X & -10.764 $\pm$ 0.336 & — \\
+Negative Binomial & halfnormal & X & -10.826 $\pm$ 0.345 & — \\
+\bottomrule
+\end{tabular}
+\end{table}
